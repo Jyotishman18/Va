@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You Said YES! 💕</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        /* Yes Page Specific Styles */
+        .yes-page-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            position: relative;
+            padding: 4rem 2rem;
+        }
+
+        .mega-heart {
+            font-size: 8rem;
+            animation: megaHeartPulse 2s ease-in-out infinite;
+            display: inline-block;
+            filter: drop-shadow(0 10px 30px rgba(255, 51, 102, 0.5));
+        }
+
+        @keyframes megaHeartPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .hero-title {
+            font-size: 3.5rem !important;
+            margin: 2rem 0 1rem !important;
+            background: linear-gradient(135deg, #ff1e56 0%, #ff69b4 50%, #ff8fa3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes titleFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Rotating Quotes Section */
+        .quotes-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2.5rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(255, 51, 102, 0.2);
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quote-text {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            color: white;
+            opacity: 0;
+            animation: fadeInOut 6s infinite;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeInOut {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            10%,
+            90% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Photo Frame Section */
+        .photo-frame {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 50px rgba(255, 51, 102, 0.4),
+                0 0 0 20px rgba(255, 255, 255, 0.1);
+            animation: photoFloat 4s ease-in-out infinite;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
+        }
+
+        @keyframes photoFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.8), rgba(192, 108, 132, 0.8));
+        }
+
+        .heart-border {
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            right: -30px;
+            bottom: -30px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .heart-border-item {
+            position: absolute;
+            font-size: 2rem;
+            animation: rotateHearts 20s linear infinite;
+        }
+
+        @keyframes rotateHearts {
+            from {
+                transform: rotate(0deg) translateX(220px) rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg) translateX(220px) rotate(-360deg);
+            }
+        }
+
+        /* Timeline Counter */
+        .timeline-section {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .counter-number {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1rem 0;
+            animation: counterPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes counterPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Love Reasons Mini Carousel */
+        .reasons-carousel {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding: 2rem 1rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .reasons-carousel::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .reasons-carousel::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .reasons-carousel::-webkit-scrollbar-thumb {
+            background: rgba(255, 51, 102, 0.5);
+            border-radius: 10px;
+        }
+
+        .reason-card {
+            min-width: 280px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            scroll-snap-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .reason-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .reason-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .reason-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: white;
+        }
+
+        /* Music Player Enhanced */
+        .music-player {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 2.5rem;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .music-visualizer {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: flex-end;
+            height: 80px;
+            margin: 2rem 0;
+        }
+
+        .visualizer-bar {
+            width: 12px;
+            background: linear-gradient(180deg, #ff1e56, #ff69b4);
+            border-radius: 10px;
+            animation: visualizerPulse 0.8s ease-in-out infinite alternate;
+        }
+
+        .visualizer-bar:nth-child(1) {
+            animation-delay: 0s;
+            height: 30%;
+        }
+
+        .visualizer-bar:nth-child(2) {
+            animation-delay: 0.1s;
+            height: 60%;
+        }
+
+        .visualizer-bar:nth-child(3) {
+            animation-delay: 0.2s;
+            height: 45%;
+        }
+
+        .visualizer-bar:nth-child(4) {
+            animation-delay: 0.3s;
+            height: 75%;
+        }
+
+        .visualizer-bar:nth-child(5) {
+            animation-delay: 0.4s;
+            height: 50%;
+        }
+
+        .visualizer-bar:nth-child(6) {
+            animation-delay: 0.3s;
+            height: 65%;
+        }
+
+        .visualizer-bar:nth-child(7) {
+            animation-delay: 0.2s;
+            height: 40%;
+        }
+
+        .visualizer-bar:nth-child(8) {
+            animation-delay: 0.1s;
+            height: 55%;
+        }
+
+        @keyframes visualizerPulse {
+            from {
+                height: 20%;
+                opacity: 0.5;
+            }
+
+            to {
+                height: 90%;
+                opacity: 1;
+            }
+        }
+
+        .music-visualizer.paused .visualizer-bar {
+            animation: none;
+            height: 20% !important;
+            opacity: 0.3;
+        }
+
+        /* Click Hearts */
+        .click-heart {
+            position: fixed;
+            font-size: 2rem;
+            pointer-events: none;
+            z-index: 9999;
+            animation: clickHeartFloat 2s ease-out forwards;
+        }
+
+        @keyframes clickHeartFloat {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-200px) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Floating hearts for music */
+        .floating-heart {
+            position: fixed;
+            font-size: 20px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+            animation: floatUpHeart 5s ease-in forwards;
+        }
+
+        @keyframes floatUpHeart {
+            0% {
+                opacity: 0;
+                transform: translateY(0) rotate(0deg);
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+
+        .glass-card.music-playing {
+            animation: cardPulse 2.5s ease-in-out infinite;
+        }
+
+        .glass-card.music-playing:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes cardPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 8px 32px 0 rgba(255, 51, 102, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 8px 40px 0 rgba(255, 51, 102, 0.6);
+            }
+        }
+
+        .heart.pulsing {
+            animation: smoothHeartPulse 1.5s ease-in-out infinite !important;
+        }
+
+        @keyframes smoothHeartPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .yes-page-container {
+                gap: 2rem;
+                padding: 1rem 0.5rem;
+            }
+
+            .hero-section {
+                padding: 2rem 1rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem !important;
+            }
+
+            .mega-heart {
+                font-size: 5rem;
+            }
+
+            .quotes-section {
+                padding: 2rem 1.5rem;
+                min-height: 150px;
+            }
+
+            .quote-text {
+                font-size: 1.3rem;
+            }
+
+            .photo-frame {
+                max-width: 300px;
+            }
+
+            .timeline-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .counter-number {
+                font-size: 3.5rem;
+            }
+
+            .reasons-carousel {
+                padding: 1.5rem 0.5rem;
+            }
+
+            .reason-card {
+                min-width: 240px;
+                padding: 1.5rem;
+            }
+
+            .reason-icon {
+                font-size: 2.5rem;
+            }
+
+            .reason-text {
+                font-size: 1rem;
+            }
+
+            .music-player {
+                padding: 2rem 1.5rem;
+            }
+
+            .music-visualizer {
+                height: 60px;
+            }
+
+            .visualizer-bar {
+                width: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .yes-page-container {
+                padding: 0.5rem;
+            }
+
+            .hero-section {
+                padding: 1.5rem 0.5rem;
+            }
+
+            .hero-title {
+                font-size: 2rem !important;
+                margin: 1.5rem 0 0.8rem !important;
+            }
+
+            .mega-heart {
+                font-size: 4rem;
+            }
+
+            .quotes-section {
+                padding: 1.5rem 1rem;
+                min-height: 130px;
+            }
+
+            .quote-text {
+                font-size: 1.1rem;
+            }
+
+            .photo-frame {
+                max-width: 250px;
+            }
+
+            .heart-border-item {
+                font-size: 1.5rem;
+            }
+
+            .timeline-section {
+                padding: 1.5rem 1rem;
+            }
+
+            .timeline-section h2 {
+                font-size: 1.5rem !important;
+            }
+
+            .counter-number {
+                font-size: 2.8rem;
+            }
+
+            .counter-number span {
+                font-size: 1.2rem !important;
+            }
+
+            .glass-card {
+                padding: 2rem 1.2rem !important;
+            }
+
+            .glass-card h2 {
+                font-size: 1.6rem !important;
+            }
+
+            .reasons-carousel {
+                padding: 1rem 0.2rem;
+            }
+
+            .reason-card {
+                min-width: 200px;
+                padding: 1.2rem;
+            }
+
+            .reason-icon {
+                font-size: 2rem;
+            }
+
+            .reason-text {
+                font-size: 0.95rem;
+            }
+
+            .music-player {
+                padding: 1.5rem 1rem;
+            }
+
+            .music-player h3 {
+                font-size: 1.3rem !important;
+            }
+
+            .music-visualizer {
+                height: 50px;
+                gap: 5px;
+            }
+
+            .visualizer-bar {
+                width: 8px;
+            }
+
+            .btn {
+                padding: 14px 32px !important;
+                font-size: 1rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="yes-page-container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="mega-heart">💖</div>
+            <h1 class="hero-title">You Said YES!</h1>
+            <p style="font-size: 1.3rem; color: rgba(255, 255, 255, 0.9);">You've made me the happiest person alive! 🥰
+            </p>
+        </div>
+
+        <!-- Rotating Quotes -->
+        <div class="quotes-section">
+            <div class="quote-text" id="quote-text">
+                "You are my today and all of my tomorrows."
+            </div>
+        </div>
+
+        <!-- Photo Frame -->
+        <div class="photo-frame">
+            <div class="photo-placeholder">
+                💕
+            </div>
+            <div class="heart-border">
+                <span class="heart-border-item" style="top: 0; left: 50%;">💖</span>
+                <span class="heart-border-item" style="top: 25%; right: 0;">💗</span>
+                <span class="heart-border-item" style="bottom: 0; left: 50%;">💓</span>
+                <span class="heart-border-item" style="top: 25%; left: 0;">💝</span>
+            </div>
+        </div>
+
+        <!-- Timeline Counter -->
+        <div class="timeline-section">
+            <h2 style="font-size: 1.8rem; margin-bottom: 2rem;">Our Journey 💫</h2>
+
+            <div style="margin-bottom: 2rem;">
+                <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 0.5rem;">Together For</p>
+                <div class="counter-number" id="together-counter">0</div>
+                <p style="font-size: 1.1rem; opacity: 0.8;">Days of Pure Love 💕</p>
+            </div>
+
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.2); padding-top: 2rem;">
+                <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 0.5rem;">Known Each Other</p>
+                <div class="counter-number" id="known-counter" style="font-size: 4rem;">0</div>
+                <p style="font-size: 1.1rem; opacity: 0.8;">Days of Connection 🌟</p>
+            </div>
+        </div>
+
+        <!-- Love Reasons Carousel -->
+        <div class="glass-card" style="padding: 2.5rem 1.5rem;">
+            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem;">Reasons I Love my Sunumunuuuuuuuu 💖
+            </h2>
+            <div class="reasons-carousel">
+                <div class="reason-card">
+                    <div class="reason-icon">✨</div>
+                    <div class="reason-text">Your smile lights up my entire world</div>
+                </div>
+                <div class="reason-card">
+                    <div class="reason-icon">💫</div>
+                    <div class="reason-text">You make every day an adventure</div>
+                </div>
+                <div class="reason-card">
+                    <div class="reason-icon">🌈</div>
+                    <div class="reason-text">Your laugh is my favorite sound</div>
+                </div>
+                <div class="reason-card">
+                    <div class="reason-icon">⭐</div>
+                    <div class="reason-text">You inspire me to be better</div>
+                </div>
+                <div class="reason-card">
+                    <div class="reason-icon">💎</div>
+                    <div class="reason-text">Every moment with you is precious</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Music Player -->
+        <div class="music-player">
+            <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Our Song 🎵</h3>
+
+            <div class="music-visualizer" id="visualizer">
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+            </div>
+
+            <audio id="bg-music" loop>
+                <source src="assets/song.mp3" type="audio/mpeg">
+            </audio>
+
+            <button id="music-control" class="btn btn-primary" onclick="toggleMusic()">
+                Play Music 🎵
+            </button>
+        </div>
+
+        <!-- Final Message -->
+        <div class="glass-card" style="text-align: center; padding: 3rem 2.5rem;">
+            <span class="heart" id="heart"
+                style="font-size: 5rem; display: inline-block; margin-bottom: 1.5rem;">💕</span>
+            <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Forever Grateful</h2>
+            <p style="font-size: 1.2rem; line-height: 1.8;">
+                Thank you for choosing to be mine. I promise to cherish every moment,
+                support your dreams, and love you unconditionally. You are my everything. 💖
+            </p>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Rotating Quotes
+        const quotes = [
+            "You are my today and all of my tomorrows.",
+            "In you, I've found the love of my life and my closest friend.",
+            "Every love story is beautiful, but ours is my favorite.",
+            "You are the best thing that's ever been mine.",
+            "With you, I am home.",
+            "You are my sunshine on a rainy day.",
+            "I love you more than words can express."
+        ];
+
+        let currentQuote = 0;
+        const quoteText = document.getElementById('quote-text');
+
+        function rotateQuotes() {
+            currentQuote = (currentQuote + 1) % quotes.length;
+            quoteText.textContent = quotes[currentQuote];
+        }
+
+        setInterval(rotateQuotes, 6000);
+
+        // Days Counters with live update
+        const togetherDate = new Date('2025-07-01'); // Together since July 1, 2025
+        const knownDate = new Date('2025-05-23'); // Known each other since May 23, 2025
+        const togetherCounter = document.getElementById('together-counter');
+        const knownCounter = document.getElementById('known-counter');
+
+        function updateCounters() {
+            const now = new Date();
+
+            // Calculate days, hours, minutes, seconds together
+            const togetherDiff = now - togetherDate;
+            const togetherDays = Math.floor(togetherDiff / (1000 * 60 * 60 * 24));
+            const togetherHours = Math.floor((togetherDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const togetherMinutes = Math.floor((togetherDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const togetherSeconds = Math.floor((togetherDiff % (1000 * 60)) / 1000);
+
+            togetherCounter.innerHTML = `${togetherDays}<span style="font-size: 1.5rem; display: block; margin-top: 0.5rem; font-weight: 400;">${togetherHours}h ${togetherMinutes}m ${togetherSeconds}s</span>`;
+
+            // Calculate days, hours, minutes, seconds since first meeting
+            const knownDiff = now - knownDate;
+            const knownDays = Math.floor(knownDiff / (1000 * 60 * 60 * 24));
+            const knownHours = Math.floor((knownDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const knownMinutes = Math.floor((knownDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const knownSeconds = Math.floor((knownDiff % (1000 * 60)) / 1000);
+
+            knownCounter.innerHTML = `${knownDays}<span style="font-size: 1.5rem; display: block; margin-top: 0.5rem; font-weight: 400;">${knownHours}h ${knownMinutes}m ${knownSeconds}s</span>`;
+        }
+
+        // Update immediately and then every second
+        updateCounters();
+        setInterval(updateCounters, 1000);
+
+        // Music Controls
+        const audio = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('music-control');
+        const visualizer = document.getElementById('visualizer');
+        const heart = document.getElementById('heart');
+        let isPlaying = false;
+        let floatingHeartsInterval = null;
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.bottom = '0px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        function startVisualEffects() {
+            heart.style.transition = 'transform 0.8s ease-in';
+            heart.classList.add('pulsing');
+
+            visualizer.classList.remove('paused');
+
+            if (!floatingHeartsInterval) {
+                floatingHeartsInterval = setInterval(() => {
+                    createFloatingHeart();
+                }, 1000);
+            }
+        }
+
+        function stopVisualEffects() {
+            heart.style.transition = 'transform 0.8s ease-out';
+            heart.classList.remove('pulsing');
+
+            visualizer.classList.add('paused');
+
+            if (floatingHeartsInterval) {
+                clearInterval(floatingHeartsInterval);
+                floatingHeartsInterval = null;
+
+                const existingHearts = document.querySelectorAll('.floating-heart');
+                existingHearts.forEach(h => {
+                    h.style.transition = 'opacity 0.6s ease-out';
+                    h.style.opacity = '0';
+                    setTimeout(() => h.remove(), 600);
+                });
+            }
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                musicBtn.innerHTML = "Play Music 🎵";
+                isPlaying = false;
+                stopVisualEffects();
+            } else {
+                audio.play();
+                musicBtn.innerHTML = "Pause Music ⏸️";
+                isPlaying = true;
+                startVisualEffects();
+            }
+        }
+
+        // Click to create hearts
+        document.body.addEventListener('click', function (e) {
+            const clickHeart = document.createElement('div');
+            clickHeart.className = 'click-heart';
+            clickHeart.innerHTML = ['💖', '💕', '💗', '💓', '💝'][Math.floor(Math.random() * 5)];
+            clickHeart.style.left = e.pageX + 'px';
+            clickHeart.style.top = e.pageY + 'px';
+            document.body.appendChild(clickHeart);
+
+            setTimeout(() => {
+                clickHeart.remove();
+            }, 2000);
+        });
+
+        // Autoplay attempt
+        document.addEventListener('DOMContentLoaded', function () {
+            audio.volume = 0.5;
+            visualizer.classList.add('paused');
+
+            audio.play().then(() => {
+                isPlaying = true;
+                musicBtn.innerHTML = "Pause Music ⏸️";
+                startVisualEffects();
+            }).catch(function (error) {
+                console.log("Autoplay prevented.");
+                isPlaying = false;
+                musicBtn.innerHTML = "Play Music 🎵";
+            });
+        });
+    </script>
+</body>
+
+</html>

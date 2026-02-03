@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Please Reconsider... 💔</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* Dramatic Sad Page Styles */
+        .container {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Rain/Tears Effect */
+        .rain-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .tear {
+            position: absolute;
+            width: 2px;
+            height: 50px;
+            background: linear-gradient(180deg, transparent, rgba(135, 206, 250, 0.8));
+            animation: tearFall linear infinite;
+        }
+
+        @keyframes tearFall {
+            0% {
+                top: -50px;
+                opacity: 1;
+            }
+
+            100% {
+                top: 100vh;
+                opacity: 0.3;
+            }
+        }
+
+        /* Broken Heart Animation */
+        .broken-heart-container {
+            position: relative;
+            margin: 2rem 0;
+            height: 200px;
+        }
+
+        .heart-half {
+            position: absolute;
+            font-size: 10rem;
+            animation: heartBreak 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 30px rgba(255, 51, 102, 0.5));
+        }
+
+        .heart-left {
+            left: 50%;
+            transform: translateX(-100%);
+            animation: heartBreakLeft 3s ease-in-out infinite;
+        }
+
+        .heart-right {
+            left: 50%;
+            animation: heartBreakRight 3s ease-in-out infinite;
+        }
+
+        @keyframes heartBreakLeft {
+
+            0%,
+            100% {
+                transform: translateX(-51%) rotate(0deg);
+            }
+
+            50% {
+                transform: translateX(-80%) rotate(-15deg);
+            }
+        }
+
+        @keyframes heartBreakRight {
+
+            0%,
+            100% {
+                transform: translateX(-49%) rotate(0deg);
+            }
+
+            50% {
+                transform: translateX(-20%) rotate(15deg);
+            }
+        }
+
+        /* Dramatic Title */
+        .dramatic-title {
+            font-size: 4rem !important;
+            animation: dramaticShake 0.5s infinite, colorChange 2s infinite;
+            text-align: center;
+            margin: 3rem 0 2rem !important;
+        }
+
+        @keyframes dramaticShake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
+        }
+
+        @keyframes colorChange {
+
+            0%,
+            100% {
+                color: #ff1e56;
+            }
+
+            50% {
+                color: #ff69b4;
+            }
+        }
+
+        /* Pleading Messages */
+        .pleading-section {
+            background: rgba(255, 51, 102, 0.15);
+            padding: 3rem 2.5rem;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 51, 102, 0.3);
+            margin: 2rem 0;
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(255, 51, 102, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(255, 51, 102, 0.6);
+            }
+        }
+
+        .pleading-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 1.5rem 0;
+            animation: textPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes textPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        /* Crying Emoji */
+        .crying-emoji {
+            font-size: 8rem;
+            display: inline-block;
+            animation: cry 2s ease-in-out infinite;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes cry {
+
+            0%,
+            100% {
+                transform: rotate(-5deg) scale(1);
+            }
+
+            50% {
+                transform: rotate(5deg) scale(1.1);
+            }
+        }
+
+        /* Reasons List */
+        .reasons-list {
+            text-align: left;
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+        }
+
+        .reason-item {
+            font-size: 1.3rem;
+            margin: 1.5rem 0;
+            padding-left: 2.5rem;
+            position: relative;
+            animation: fadeInSlide 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .reason-item:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .reason-item:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .reason-item:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .reason-item:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+
+        .reason-item:nth-child(5) {
+            animation-delay: 1s;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .reason-item::before {
+            content: '💔';
+            position: absolute;
+            left: 0;
+            font-size: 1.5rem;
+        }
+
+        /* Countdown Timer */
+        .sadness-meter {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .meter-bar {
+            width: 100%;
+            max-width: 500px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            margin: 1.5rem auto;
+            overflow: hidden;
+            border: 2px solid rgba(255, 51, 102, 0.3);
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff1e56, #ff69b4);
+            width: 0%;
+            animation: fillSadness 10s linear forwards;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.8);
+        }
+
+        @keyframes fillSadness {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        /* Floating Broken Hearts */
+        .floating-broken-heart {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+            animation: floatBrokenHeart 5s ease-in-out infinite;
+        }
+
+        @keyframes floatBrokenHeart {
+            0% {
+                opacity: 0;
+                transform: translateY(0) rotate(0deg);
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.6;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+
+        /* Desperate Button */
+        .desperate-button {
+            animation: desperatePulse 1s ease-in-out infinite !important;
+            font-size: 1.3rem !important;
+            padding: 20px 50px !important;
+        }
+
+        @keyframes desperatePulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 8px 20px rgba(255, 51, 102, 0.3);
+            }
+
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 12px 30px rgba(255, 51, 102, 0.6);
+            }
+        }
+
+        /* Desperation Modal */
+        .desperation-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(255, 20, 60, 0.95);
+            padding: 3rem;
+            border-radius: 30px;
+            border: 3px solid white;
+            z-index: 10000;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            max-width: 500px;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .desperation-modal.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            animation: modalShake 0.5s ease-in-out infinite;
+        }
+
+        @keyframes modalShake {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(-52%, -50%) rotate(-2deg);
+            }
+
+            75% {
+                transform: translate(-48%, -50%) rotate(2deg);
+            }
+        }
+
+        .desperation-modal h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            animation: none !important;
+        }
+
+        .desperation-modal p {
+            font-size: 1.3rem;
+            color: white;
+            margin: 1rem 0;
+        }
+
+        /* Screen shake effect */
+        @keyframes screenShake {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            10% {
+                transform: translate(-10px, 5px);
+            }
+
+            20% {
+                transform: translate(10px, -5px);
+            }
+
+            30% {
+                transform: translate(-10px, -5px);
+            }
+
+            40% {
+                transform: translate(10px, 5px);
+            }
+
+            50% {
+                transform: translate(-10px, 5px);
+            }
+
+            60% {
+                transform: translate(10px, -5px);
+            }
+
+            70% {
+                transform: translate(-10px, -5px);
+            }
+
+            80% {
+                transform: translate(10px, 5px);
+            }
+
+            90% {
+                transform: translate(-10px, 5px);
+            }
+        }
+
+        body.extreme-sadness {
+            animation: screenShake 0.5s ease-in-out infinite;
+        }
+
+        body.extreme-sadness::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.1);
+            z-index: 5;
+            pointer-events: none;
+            animation: redFlash 1s ease-in-out infinite;
+        }
+
+        @keyframes redFlash {
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Grayscale effect on page */
+        .glass-card {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Dark overlay */
+        .dark-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 0;
+            animation: overlayPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes overlayPulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dramatic-title {
+                font-size: 2.5rem !important;
+            }
+
+            .crying-emoji {
+                font-size: 5rem;
+            }
+
+            .heart-half {
+                font-size: 6rem;
+            }
+
+            .pleading-text {
+                font-size: 1.3rem;
+            }
+
+            .reason-item {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Dark Overlay -->
+    <div class="dark-overlay"></div>
+
+    <!-- Rain Effect -->
+    <div class="rain-container" id="rain-container"></div>
+
+    <div class="container">
+        <div class="glass-card">
+            <!-- Broken Heart -->
+            <div class="broken-heart-container">
+                <div class="heart-half heart-left">💔</div>
+                <div class="heart-half heart-right">❤️</div>
+            </div>
+
+            <!-- Dramatic Title -->
+            <h1 class="dramatic-title">NOOOO! PLEASE! 😭</h1>
+
+            <!-- Crying Emoji -->
+            <div style="text-align: center; margin: 2rem 0;">
+                <span class="crying-emoji">😢</span>
+            </div>
+
+            <!-- Pleading Section -->
+            <div class="pleading-section">
+                <div class="pleading-text">My heart is breaking into a million pieces! 💔</div>
+                <div class="pleading-text">How can I convince you? 🥺</div>
+            </div>
+
+            <!-- Sadness Meter -->
+            <div class="sadness-meter">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Current Sadness Level:</h3>
+                <div class="meter-bar">
+                    <div class="meter-fill"></div>
+                </div>
+                <p style="font-size: 1.2rem; margin-top: 1rem; opacity: 0.9;">
+                    📈 Increasing by the second...
+                </p>
+            </div>
+
+            <!-- Reasons Why You Should Reconsider -->
+            <h2 style="text-align: center; font-size: 2rem; margin: 3rem 0 1.5rem;">
+                Why You Should Give Me a Chance:
+            </h2>
+
+            <div class="reasons-list">
+                <div class="reason-item">I'll make you smile every single day</div>
+                <div class="reason-item">I'll support all your dreams and goals</div>
+                <div class="reason-item">I'll be your biggest cheerleader</div>
+                <div class="reason-item">I'll never let you feel alone</div>
+                <div class="reason-item">I promise to make you feel special every moment</div>
+            </div>
+
+            <!-- Dramatic Message -->
+            <div style="text-align: center; margin: 3rem 0;">
+                <p style="font-size: 1.5rem; line-height: 1.8; margin: 1.5rem 0;">
+                    Please... I'm literally on my knees here! 🧎
+                </p>
+                <p style="font-size: 1.3rem; opacity: 0.9;">
+                    Just one more chance to prove myself? 🥺👉👈
+                </p>
+            </div>
+
+            <!-- Desperate Plea -->
+            <div class="pleading-section" style="margin: 3rem 0;">
+                <p style="font-size: 1.6rem; font-weight: 700; text-align: center;">
+                    I PROMISE I'll be the best partner EVER! 🌟
+                </p>
+                <p style="font-size: 1.3rem; text-align: center; margin-top: 1rem;">
+                    Just say yes and watch me prove it! 💪❤️
+                </p>
+            </div>
+
+            <!-- Buttons -->
+            <div class="buttons" style="margin-top: 3rem;">
+                <a href="proposal.html" class="btn btn-primary desperate-button">
+                    Okay fine, I'll reconsider! 😅
+                </a>
+            </div>
+
+            <p style="text-align: center; margin-top: 2rem; font-size: 1rem; opacity: 0.7;">
+                (Please don't leave me hanging... 🥺)
+            </p>
+        </div>
+    </div>
+
+    <!-- Desperation Modal (appears when sadness meter fills) -->
+    <div class="desperation-modal" id="desperation-modal">
+        <h2>WAIT WAIT WAIT! 😭</h2>
+        <p style="font-size: 2rem; margin: 1.5rem 0;">💔💔💔</p>
+        <p>My heart literally can't take this anymore!</p>
+        <p style="font-weight: 700; font-size: 1.5rem; margin-top: 1.5rem;">PLEASE GIVE ME ONE MORE CHANCE! 🙏</p>
+        <button onclick="closeModal()" class="btn btn-primary"
+            style="margin-top: 2rem; animation: desperatePulse 0.5s ease-in-out infinite;">
+            Fine, I'll think about it!
+        </button>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        let tearInterval;
+        let heartInterval;
+
+        // Create rain effect
+        const rainContainer = document.getElementById('rain-container');
+
+        function createTear() {
+            const tear = document.createElement('div');
+            tear.className = 'tear';
+            tear.style.left = Math.random() * 100 + '%';
+            tear.style.animationDuration = (Math.random() * 2 + 1) + 's';
+            tear.style.animationDelay = Math.random() * 2 + 's';
+            rainContainer.appendChild(tear);
+
+            setTimeout(() => {
+                tear.remove();
+            }, 4000);
+        }
+
+        // Create continuous tears
+        tearInterval = setInterval(createTear, 100);
+
+        // Create floating broken hearts
+        function createFloatingBrokenHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-broken-heart';
+            heart.innerHTML = '💔';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.bottom = '0px';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Spawn broken hearts
+        heartInterval = setInterval(createFloatingBrokenHeart, 1500);
+
+        // Trigger extreme sadness when meter fills (10 seconds)
+        setTimeout(() => {
+            triggerExtremeSadness();
+        }, 10000);
+
+        function triggerExtremeSadness() {
+            // Add screen shake
+            document.body.classList.add('extreme-sadness');
+
+            // Show desperation modal
+            const modal = document.getElementById('desperation-modal');
+            modal.classList.add('show');
+
+            // Increase tear and heart spawn rate
+            clearInterval(tearInterval);
+            clearInterval(heartInterval);
+            tearInterval = setInterval(createTear, 50); // Double the tears!
+            heartInterval = setInterval(createFloatingBrokenHeart, 700); // More hearts!
+
+            // Play alert sound (browser beep)
+            const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZTA0PS6Xh8bllHAU2jdXzzn0pBSh+zPLaizsIGGS57OihUhELTKTi8bllHAU2jdXzzn0pBSh+zPLaizsIGGS57OihUhELTKTi8bllHAU2jdXzzn0pBSh+zPLaizsIGGS57OihUhELTKTi8bllHAU2jdXzzn0pBSh+zPLaizsIGGS57OihUhELTKTi8bllHAU2jdXzzn0pBSh+zPLaizsIGGS57OihUhELTKTi8bllHAU2jdXzzn0pBSh+zPLaizsIGGS57OihUhELTKTi8bllHAU2jdXzzn0pBSh+zPLaizsIGGS57OihUhELTKTi8bllHAU2jdXzzn0pBSh+zPLaizsIGGS57OihUhELTKTi8bllHAU2jdXzzn0pBSh+zPLaizsIGGS57OihUhELTKTi8Q==');
+            audio.play().catch(() => { });
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('desperation-modal');
+            modal.classList.remove('show');
+            document.body.classList.remove('extreme-sadness');
+
+            // Slow down effects
+            clearInterval(tearInterval);
+            clearInterval(heartInterval);
+            tearInterval = setInterval(createTear, 100);
+            heartInterval = setInterval(createFloatingBrokenHeart, 1500);
+        }
+    </script>
+</body>
+
+</html>
